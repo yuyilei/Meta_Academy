@@ -15,7 +15,7 @@ using namespace std;
 
 int gcd(int a, int b) {
     if ( b == 0 ){
-        return b ;
+        return a ;
     }
     else {
         return  gcd( b , a % b) ;
@@ -114,7 +114,7 @@ string getres(Map<string , Vector<string> > & grammer , string symbol , string o
         while (scanner.hasMoreTokens()) {
         
             string next = scanner.nextToken() ;
-            out += getres(grammer,next,out) ;
+            out += generate(grammer,next) ;
         }
     }
     return out ; 
