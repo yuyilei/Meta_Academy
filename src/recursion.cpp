@@ -3,6 +3,8 @@
  * each of your methods.
  */
 
+int ChangeAndSum( GBufferedImage& image , int x ,int y , int newColor ,int old ) ;
+void DeepFind( Map<string, Vector<string>> & prereqMap , string goal , Map<string ,int > had );
 #include <math.h>
 #include "recursion.h"
 #include "map.h"
@@ -28,8 +30,8 @@ void serpinskii(GWindow &w, int leftX, int leftY, int size, int order) {
     if (order == 1 ){
     
         w.drawLine(leftX,leftY,size+leftX,leftY) ;
-        w.drawLine(size+leftX,leftY,size / 2.0 + leftX , size*sqrt(3) /2.0+ leftY) ;
-        w.drawLine(size/2.0+leftX,size*sqrt(3)/2+leftY,leftX,leftY) ; 
+        w.drawLine(size+leftX,leftY,size / 2 + leftX , size*sqrt(3) /2+ leftY) ;
+        w.drawLine(size/2 +leftX,size*sqrt(3)/2+leftY,leftX,leftY) ; 
     }
 
     else if ( order <= 0 ){
@@ -40,9 +42,9 @@ void serpinskii(GWindow &w, int leftX, int leftY, int size, int order) {
 
     else {
     
-        serpinskii (w ,leftX , leftY ,size /2.0 , order - 1 ) ;
-        serpinskii (w , leftX + size /2.0 , leftY , order - 1 ) ;
-        serpinskii (w,  leftX  +size /4.0 , leftY + size/2.0 *sqrt(3)) ;
+        serpinskii (w , leftX - size/4 , leftY + size*sqrt(3)/4 ,size /2, order - 1 ) ;
+        serpinskii (w , leftX + size /4 , leftY - size*sqrt(3)/4 , size/2 , order - 1 ) ;
+        serpinskii (w,  leftX  + 3*size /8 , leftY + size/4 *sqrt(3), size /2 ,order - 1 ) ;
 
     }
 }
@@ -91,7 +93,7 @@ void DeepFind( Map<string, Vector<string>> & prereqMap , string goal , Map<strin
         
             DeepFind( prereqMap , concept , had ) ;
 
-            if ( !had.contiansKey(concept) ){
+            if ( !had.containsKey(concept) ){
             
                 cout << concept << endl ;
             }
@@ -109,7 +111,7 @@ string getres(Map<string , Vector<string> > & grammer , string symbol , string o
 
     else {
     
-        string random = grammer.get(symbol).get(randomInteger( 0, grammar.get( symbol ).size() -1 ) )  ; 
+        string random = grammer.get(symbol).get(randomInteger( 0, grammer.get( symbol ).size() -1 ) )  ; 
         TokenScanner scanner(random) ;
         while (scanner.hasMoreTokens()) {
         
@@ -120,8 +122,8 @@ string getres(Map<string , Vector<string> > & grammer , string symbol , string o
     return out ; 
 }
 
-string generate(Map<string, Vector<string> > & grammar, string symbol) {
+string generate(Map<string, Vector<string> > & grammer, string symbol) {
     // your code here
     cout << "[recursion generate called]" << endl;
-    return getres(gammar , symbol , " ") ;
+    return getres(grammer , symbol , " ") ;
 }
