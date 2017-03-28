@@ -51,19 +51,20 @@ void serpinskii(GWindow &w, int leftX, int leftY, int size, int order) {
 
 int floodFill(GBufferedImage& image, int x, int y, int newColor) {
     // your code here
-    cout << "[recursion flood fill called]" << endl;
-    if ( newColor == image.getRGB(x,y)) {
+    old = image.getRGB(x,y) ;
+    if ( newColor == old ) {
         return 0;
     }
 
     else 
-        return ChangeAndSum(image , x, y , newColor , image.getRGB(x,y)) ; 
+        return ChangeAndSum(image , x, y , newColor , old ) ; 
 }
 
 int ChangeAndSum( GBufferedImage& image , int x ,int y , int newColor ,int old ) {
 
     if ( image.inBounds(x,y) && image.getRGB(x,y)==old) {
-    
+        
+        image.setRGB( x , y , newColor );    
         return 1 + ChangeAndSum(image,x,y+1,newColor,old) + ChangeAndSum(image,x,y-1,newColor,old) + ChangeAndSum(image,x+1,y,newColor,old) + ChangeAndSum(image,x-1,y,newColor,old) ; 
     }
 
