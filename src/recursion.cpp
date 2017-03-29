@@ -17,9 +17,11 @@ using namespace std;
 
 int gcd(int a, int b) {
     if ( b == 0 ){
+        cout << "gcd(" << a << ", " << b << ") = " << a << endl;
         return a ;
     }
     else {
+        cout<<"gcd("<<a<<", "<<b<<") = gcd("<<b<<", "<<a%b<<")"<<endl;
         return  gcd( b , a % b) ;
     }
 }
@@ -30,7 +32,7 @@ void serpinskii(GWindow &w, int leftX, int leftY, int size, int order) {
     if (order == 1 ){
     
         w.drawLine(leftX,leftY,size+leftX,leftY) ;
-        w.drawLine(size+leftX,leftY,size / 2 + leftX , size*sqrt(3) /2+ leftY) ;
+        w.drawLine(size+leftX,leftY,size / 2 + leftX , size*(sqrt(3) /2)+ leftY) ;
         w.drawLine(size/2 +leftX,size*sqrt(3)/2+leftY,leftX,leftY) ; 
     }
 
@@ -42,9 +44,12 @@ void serpinskii(GWindow &w, int leftX, int leftY, int size, int order) {
 
     else {
     
-        serpinskii (w , leftX - size/4 , leftY + size*sqrt(3)/4 ,size /2, order - 1 ) ;
-        serpinskii (w , leftX + size /4 , leftY - size*sqrt(3)/4 , size/2 , order - 1 ) ;
-        serpinskii (w,  leftX  + 3*size /8 , leftY + size/4 *sqrt(3), size /2 ,order - 1 ) ;
+        w.drawLine(leftX+size/2, leftY, leftX+size/4, leftY+(sqrt(3)*size)/4);
+        w.drawLine(leftX+size/2, leftY, leftX+3*size/4, leftY+(sqrt(3)*size)/4);
+        w.drawLine(leftX+size/4, leftY+(sqrt(3)*size)/4, leftX+size/2, leftY+(sqrt(3)*size)/4);
+        serpinskii (w , leftX , leftY ,size /2, order - 1 ) ;
+        serpinskii (w , leftX + size /2 , leftY  , size/2 , order - 1 ) ;
+        serpinskii (w,  leftX  + size /4 , leftY + size*sqrt(3)/4, size /2 ,order - 1 ) ;
 
     }
 }
